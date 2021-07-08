@@ -66,6 +66,10 @@ func (p *Proj) GetDef() string {
 	return C.GoString(C.pj_get_def(p.pj, 0))
 }
 
+func (p *Proj) CompareDatums(c *Proj) bool {
+	return int(C.pj_compare_datums(p.pj, c.pj)) > 0
+}
+
 func transform(srcpj, dstpj *Proj, x, y, z []float64) ([]float64, []float64, []float64, error) {
 	if !(srcpj.opened && dstpj.opened) {
 		return []float64{}, []float64{}, []float64{}, errors.New("projection is closed")
