@@ -54,13 +54,13 @@ func TestInvalidErrorProblem(t *testing.T) {
 		t.Error(err)
 	}
 
-	merc, err := NewProj("+proj=merc +ellps=clrk66 +lat_ts=33")
+	merc, err := NewProj("+proj=geocent +datum=WGS84 +units=m +no_defs")
 	defer merc.Close()
 	if err != nil {
 		t.Error(err)
 	}
 
-	_, _, err = Transform2(ll, merc, DegToRad(3000), DegToRad(500))
+	_, _, _, err = Transform3(ll, merc, DegToRad(3000), DegToRad(500), 0)
 	if err == nil {
 		t.Error("err should not be nil")
 	}

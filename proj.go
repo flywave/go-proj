@@ -5,9 +5,10 @@ package proj
 
 #cgo CFLAGS:-I ./lib
 
-#cgo linux LDFLAGS: -L ./lib  -Wl,--start-group -lproj -ldl -lm -lcproj -Wl,--end-group
-#cgo darwin LDFLAGS: -L ./lib  -lproj -lcproj -lm
-#cgo windows LDFLAGS: -L ./lib -lproj -lcproj  -fPIC
+#cgo linux LDFLAGS: -L ./lib/linux  -Wl,--start-group -lproj -ldl -lm -lcproj -Wl,--end-group
+#cgo darwin LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin  -lproj -lcproj -lm
+#cgo darwin,arm LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin_arm  -lproj -lcproj -lm
+#cgo windows LDFLAGS: -L ./lib/windows -lproj -lcproj  -fPIC
 */
 import "C"
 import (
