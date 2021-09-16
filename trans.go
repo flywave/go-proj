@@ -3,7 +3,6 @@ package proj
 import (
 	"math"
 
-	pj "github.com/flywave/go-proj"
 	dmat4 "github.com/flywave/go3d/float64/mat4"
 	dvec3 "github.com/flywave/go3d/float64/vec3"
 )
@@ -14,28 +13,28 @@ const (
 )
 
 func Lonlat2Ecef(lon, lat, z float64) (float64, float64, float64, error) {
-	wgs84Proj, _ := pj.NewProj("+proj=longlat +datum=WGS84 +no_defs")
-	ecefProj, _ := pj.NewProj("+proj=geocent +datum=WGS84 +units=m +no_defs")
-	return pj.Transform3(wgs84Proj, ecefProj, lon*Deg2Rad, lat*Deg2Rad, z)
+	wgs84Proj, _ := NewProj("+proj=longlat +datum=WGS84 +no_defs")
+	ecefProj, _ := NewProj("+proj=geocent +datum=WGS84 +units=m +no_defs")
+	return Transform3(wgs84Proj, ecefProj, lon*Deg2Rad, lat*Deg2Rad, z)
 }
 
 func Ecef2Lonlat(x, y, z float64) (float64, float64, float64, error) {
-	wgs84Proj, _ := pj.NewProj("+proj=longlat +datum=WGS84 +no_defs")
-	ecefProj, _ := pj.NewProj("+proj=geocent +datum=WGS84 +units=m +no_defs")
-	lon, lat, z, err := pj.Transform3(ecefProj, wgs84Proj, x, y, z)
+	wgs84Proj, _ := NewProj("+proj=longlat +datum=WGS84 +no_defs")
+	ecefProj, _ := NewProj("+proj=geocent +datum=WGS84 +units=m +no_defs")
+	lon, lat, z, err := Transform3(ecefProj, wgs84Proj, x, y, z)
 	return lon * Rad2Deg, lat * Rad2Deg, z, err
 }
 
 func Lonlat2Merc(lon, lat float64) (float64, float64, error) {
-	wgs84Proj, _ := pj.NewProj("+proj=longlat +datum=WGS84 +units=m +no_defs")
-	mercProj, _ := pj.NewProj("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over")
-	return pj.Transform2(wgs84Proj, mercProj, lon*Deg2Rad, lat*Deg2Rad)
+	wgs84Proj, _ := NewProj("+proj=longlat +datum=WGS84 +units=m +no_defs")
+	mercProj, _ := NewProj("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over")
+	return Transform2(wgs84Proj, mercProj, lon*Deg2Rad, lat*Deg2Rad)
 }
 
 func Merc2Lonlat(x, y float64) (float64, float64, error) {
-	wgs84Proj, _ := pj.NewProj("+proj=longlat +datum=WGS84 +units=m +no_defs")
-	mercProj, _ := pj.NewProj("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over")
-	lon, lat, err := pj.Transform2(mercProj, wgs84Proj, x, y)
+	wgs84Proj, _ := NewProj("+proj=longlat +datum=WGS84 +units=m +no_defs")
+	mercProj, _ := NewProj("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over")
+	lon, lat, err := Transform2(mercProj, wgs84Proj, x, y)
 	return lon * Rad2Deg, lat * Rad2Deg, err
 }
 
