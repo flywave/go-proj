@@ -13,8 +13,10 @@ package proj
 import "C"
 import (
 	"errors"
+	"fmt"
 	"math"
 	"runtime"
+	"strings"
 	"sync"
 	"unsafe"
 )
@@ -28,8 +30,17 @@ type Proj struct {
 	opened bool
 }
 
+func processEpsg(srsCode string) string {
+	if !strings.HasPrefix(srsCode, "+proj") {
+		if strings.ContainsRune(srsCode, ':') {
+			return fmt.Sprintf("+init=epsg:%s +no_defs", strings.Split(srsCode, ":")[1])
+		}
+	}
+	return srsCode
+}
+
 func NewProj(definition string) (*Proj, error) {
-	cs := C.CString(definition)
+	cs := C.CString(processEpsg(definition))
 	defer C.free(unsafe.Pointer(cs))
 	proj := &Proj{opened: false}
 
