@@ -30,4 +30,3 @@ test/*
 server/data/*
 server/cache/*
 server/plugin_output/*
-/lib
