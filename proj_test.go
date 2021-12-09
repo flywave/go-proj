@@ -71,3 +71,16 @@ func TestInvalidErrorProblem(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+const (
+	SRS_3857 = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over"
+	SRS_4326 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +over"
+)
+
+func TestProj(t *testing.T) {
+	pj1, _ := NewProj(SRS_4326)
+	pj2, _ := NewProj(SRS_3857)
+	trans, _ := NewTransformation(pj1, pj2)
+	xs, ys, _, _ := trans.Transform([]float64{DegToRad(117), DegToRad(118)}, []float64{DegToRad(36), DegToRad(37)}, nil)
+	fmt.Println(xs, ys)
+}
