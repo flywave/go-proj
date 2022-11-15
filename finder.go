@@ -1,6 +1,6 @@
 package proj
 
-// #cgo windows CFLAGS: -DHAVE_LOCALECONV
+// #cgo windows CFLAGS: -I ./lib -DHAVE_LOCALECONV
 // #include "proj_c_api.h"
 // extern char *go_finder_wrapper(char *name);
 import "C"
