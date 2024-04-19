@@ -10,7 +10,15 @@ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
 ENDIF()
 
 
-INCLUDE_DIRECTORIES(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/proj/src)
+INCLUDE_DIRECTORIES(BEFORE 
+  ${CMAKE_CURRENT_SOURCE_DIR}/proj/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/proj/src
+)
+ 
+INCLUDE_DIRECTORIES(
+                    "${CMAKE_CURRENT_SOURCE_DIR}/../libsqlite3" 
+                    "${CMAKE_CURRENT_BINARY_DIR}/../libsqlite3"
+                    )
 
 IF (WIN32)
   INCLUDE_DIRECTORIES(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/arch/win/src)
@@ -22,185 +30,243 @@ ENDIF()
  
 add_definitions( -DMUTEX_stub)
 SET(SRC_LIBPROJ_PJ
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/nad_init.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_aea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_aeqd.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_airy.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_aitoff.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_august.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_bacon.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_bipc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_boggs.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_bonne.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_calcofi.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_cass.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_cc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_cea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_chamb.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_collg.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_crast.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_denoy.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_eck1.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_eck2.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_eck3.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_eck4.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_eck5.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_eqc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_eqdc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_fahey.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_fouc_s.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_gall.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_geos.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_gins8.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_gnom.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_gn_sinu.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_goode.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_gstmerc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_hammer.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_hatano.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_igh.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_isea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_imw_p.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_krovak.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_labrd.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_laea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_lagrng.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_larr.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_lask.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_lcca.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_lcc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_loxim.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_lsat.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_mbt_fps.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_mbtfpp.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_mbtfpq.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_merc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_mill.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_mod_ster.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_moll.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_natearth.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_nell.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_nell_h.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_nocol.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_nsper.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_nzmg.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_ob_tran.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_ocea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_oea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_omerc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_ortho.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_poly.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_putp2.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_putp3.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_putp4p.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_putp5.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_putp6.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_qsc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_robin.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_rpoly.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_sconics.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_somerc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_sterea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_stere.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_sts.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_tcc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_tcea.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_tmerc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_tpeqd.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_urm5.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_urmfps.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_vandg.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_vandg2.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_vandg4.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_wag2.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_wag3.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_wag7.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_wink1.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_wink2.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/proj_etmerc.c
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/4D_api.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/aasincos.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/adjlon.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/auth.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/ctx.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/datums.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/datum_set.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/deriv.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/dmstor.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/ellps.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/ell_set.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/errno.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/factors.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/fileapi.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/filemanager.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/fwd.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/gauss.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/generic_inverse.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/grids.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/initcache.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/init.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/internal.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/inv.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/list.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/log.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/malloc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/mlfn.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/msfn.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/mutex.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/networkfilemanager.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/param.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/phi2.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pipeline.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pr_list.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/proj_json_streaming_writer.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/proj_mdist.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/qsfn.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/release.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/rtodms.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/sqlite3_utils.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/strerrno.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/strtod.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/tracing.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transform.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/tsfn.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/units.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/utils.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/wkt1_parser.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/wkt2_parser.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/wkt_parser.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/zpoly1.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/geodesic.c
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/wkt1_generated_parser.c
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/wkt2_generated_parser.c
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/cct.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/cs2cs.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/emess.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/geod.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/geod_interface.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/geod_set.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/gie.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/proj.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/projinfo.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/proj_strtod.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/projsync.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/apps/utils_apps.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/conversions/axisswap.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/conversions/cart.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/conversions/geoc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/conversions/geocent_conversions.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/conversions/noop.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/conversions/set.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/conversions/unitconvert.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/c_api.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/common.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/coordinateoperation.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/coordinatesystem.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/crs.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/datum.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/factory.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/internal_iso19111.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/io.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/metadata.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/static.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/iso19111/util.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/adams.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/aea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/aeqd.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/airy.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/aitoff.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/august.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/bacon.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/bertin1953.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/bipc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/boggs.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/bonne.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/calcofi.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/cass.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/cc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/ccon.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/cea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/chamb.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/collg.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/col_urban.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/comill.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/crast.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/denoy.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eck1.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eck2.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eck3.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eck4.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eck5.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eqc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eqdc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/eqearth.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/fahey.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/fouc_s.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/gall.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/geos.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/gins8.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/gnom.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/gn_sinu.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/goode.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/gstmerc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/hammer.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/hatano.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/healpix.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/igh.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/igh_o.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/imw_p.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/isea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/krovak.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/labrd.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/laea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/lagrng.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/larr.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/lask.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/latlong.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/lcca.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/lcc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/loxim.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/lsat.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/mbtfpp.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/mbtfpq.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/mbt_fps.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/merc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/mill.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/misrsom.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/mod_ster.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/moll.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/natearth2.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/natearth.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/nell.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/nell_h.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/nicol.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/nsper.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/nzmg.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/ob_tran.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/ocea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/oea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/omerc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/ortho.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/patterson.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/poly.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/putp2.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/putp3.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/putp4p.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/putp5.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/putp6.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/qsc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/robin.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/rouss.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/rpoly.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/sch.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/sconics.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/somerc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/sterea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/stere.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/sts.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/tcc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/tcea.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/times.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/tmerc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/tobmerc.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/tpeqd.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/urm5.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/urmfps.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/vandg2.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/vandg4.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/vandg.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/wag2.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/wag3.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/wag7.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/wink1.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projections/wink2.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/affine.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/defmodel.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/deformation.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/helmert.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/hgridshift.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/horner.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/molodensky.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/tinshift.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/vgridshift.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/proj/src/transformations/xyzgridshift.cpp
 )
 
-SET(SRC_LIBPROJ_CORE
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/aasincos.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/adjlon.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/bch2bps.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/bchgen.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/biveval.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/dmstor.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/emess.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/emess.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/geocent.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/geocent.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/geodesic.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/mk_cheby.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/nad_cvt.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/nad_init.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/nad_intr.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_apply_gridshift.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_apply_vgridshift.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_auth.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_ctx.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_fileapi.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_datum_set.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_datums.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_deriv.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_ell_set.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_ellps.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_errno.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_factors.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_fwd.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_gauss.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_gc_reader.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_geocent.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_gridcatalog.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_gridinfo.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_gridlist.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/PJ_healpix.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_init.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_initcache.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_inv.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_latlong.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_list.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_list.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_log.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_malloc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_mlfn.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_msfn.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_mutex.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_open_lib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_param.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_phi2.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_pr_list.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_qsfn.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_release.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_strerrno.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_transform.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_tsfn.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_units.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_utils.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_zpoly1.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/proj_mdist.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/proj_rouss.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/rtodms.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/vector1.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/pj_strtod.c
-        ${CONFIG_SRC}
- )
-
 set(HEADERS_LIBPROJ
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/projects.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/proj_api.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/proj/src/geodesic.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/common.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/coordinateoperation.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/coordinatesystem.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/crs.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/datum.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/io.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/metadata.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/nn.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/util.hpp
+
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/coordinateoperation_constants.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/coordinateoperation_internal.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/coordinatesystem_internal.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/esri_projection_mappings.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/include_nlohmann_json.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/internal.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/io_internal.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/lru_cache.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/tracing.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/proj/include/proj/internal/nlohmann/json.hpp
 )
 
 source_group("Header Files" FILES ${HEADERS_LIBPROJ})
-source_group("Source Files\\Core" FILES ${SRC_LIBPROJ_CORE})
-source_group("Source Files\\PJ" FILES ${SRC_LIBPROJ_PJ})
+source_group("Source Files" FILES ${SRC_LIBPROJ_PJ})
 include_directories( ${CMAKE_CURRENT_BINARY_DIR})
 
 add_definitions(-DPROJ_LIB="${CMAKE_INSTALL_PREFIX}/${DATADIR}")
 
-set(ALL_LIBPROJ_SOURCES ${SRC_LIBPROJ_PJ} ${SRC_LIBPROJ_CORE})
+set(ALL_LIBPROJ_SOURCES ${SRC_LIBPROJ_PJ})
 set(ALL_LIBPROJ_HEADERS ${HEADERS_LIBPROJ} )
 
 ADD_LIBRARY(proj STATIC

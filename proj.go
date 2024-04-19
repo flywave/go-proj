@@ -2,13 +2,18 @@ package proj
 
 /*
 #include "proj_c_api.h"
-
-#cgo CFLAGS:-I ./lib
-
-#cgo linux LDFLAGS: -L ./lib/linux  -Wl,--start-group -lproj -ldl -lm -lcproj -Wl,--end-group
-#cgo darwin LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin  -lproj -lcproj -lm
-#cgo darwin,arm LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin_arm  -lproj -lcproj -lm
-#cgo windows LDFLAGS: -L ./lib/windows -lproj -lcproj  -fPIC
+#cgo linux CFLAGS:-I ./lib
+#cgo darwin CFLAGS:-I ./lib
+#cgo darwin,arm CFLAGS:-I ./lib
+#cgo windows CFLAGS:-I ./lib
+#cgo linux CXXFLAGS: -I ./lib -std=c++14
+#cgo darwin CXXFLAGS: -I ./lib -std=gnu++14
+#cgo darwin,arm CXXFLAGS: -I ./lib -std=gnu++14
+#cgo windows CXXFLAGS: -I ./lib -std=c++14
+#cgo linux LDFLAGS: -L ./lib/linux  -Wl,--start-group -lstdc++ -lproj -ldl -lm  -lsqlite3 -lcproj -Wl,--end-group
+#cgo darwin LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin  -lproj -lcproj  -lsqlite3 -lm
+#cgo darwin,arm LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin_arm  -lproj  -lsqlite3 -lcproj -lm
+#cgo windows LDFLAGS: -L ./lib/windows -lproj -lcproj  -lsqlite3 -fPIC
 */
 import "C"
 import (

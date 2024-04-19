@@ -1,0 +1,59 @@
+IF(UNIX)
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable -Wno-unused-value -Wno-parentheses-equality -Wno-shadow -Wno-float-conversion -Wno-unknown-pragmas -Wno-tautological-compare -Wno-attributes -Wno-unused-const-variable -Wno-sign-compare -Wno-deprecated-declarations")
+    IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wno-unknown-warning-option ")
+    ENDIF()
+ENDIF()
+
+if(UNIX AND NOT APPLE)
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+ENDIF()
+
+add_definitions(-DSQLITE_THREADSAFE=2)
+if(UNIX)
+add_definitions(-DSQLITE_OS_UNIX=1)
+else()
+add_definitions(-DSQLITE_OS_WIN=1)
+endif()
+add_definitions(-DSQLITE_SYSTEM_MALLOC=1)
+add_definitions(-DSQLITE_ENABLE_RTREE=1)
+add_definitions(-DSQLITE_ENABLE_COLUMN_METADATA=1)
+add_definitions(-DSQLITE_DEFAULT_AUTO_VACUUM=1)
+add_definitions(-DSQLITE_DEFAULT_FOREIGN_KEYS=1)
+
+SET(sqlite3_HEADER_FILES
+  sqlite3.h
+  sqlite3ext.h
+  )
+
+SET(sqlite3_SOURCE_FILES
+  sqlite3.c
+  )
+
+
+ADD_LIBRARY(sqlite3 STATIC
+            ${sqlite3_HEADER_FILES}
+            ${sqlite3_SOURCE_FILES}
+          )
+
+TARGET_INCLUDE_DIRECTORIES(sqlite3 PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>)
+
+SOURCE_GROUP("src" FILES ${sqlite3_SOURCE_FILES})
+SOURCE_GROUP("include" FILES ${sqlite3_HEADER_FILES})
+
+SET_TARGET_PROPERTIES(sqlite3
+    PROPERTIES PUBLIC_HEADER "${headers}")
+
+SET_TARGET_PROPERTIES(sqlite3 PROPERTIES
+                ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+                ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+SET_TARGET_PROPERTIES(sqlite3 PROPERTIES 
+                LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+                LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+SET_TARGET_PROPERTIES(sqlite3 PROPERTIES
+                RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+                RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+
+IF(FLYWAVE_ENABLE_SOLUTION_FOLDERS)
+  SET_TARGET_PROPERTIES(sqlite3 PROPERTIES FOLDER external)
+ENDIF(FLYWAVE_ENABLE_SOLUTION_FOLDERS)
