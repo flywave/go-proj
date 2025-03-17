@@ -4,11 +4,9 @@ package proj
 #include "proj_c_api.h"
 #cgo linux CFLAGS:-I ./lib
 #cgo darwin CFLAGS:-I ./lib
-#cgo darwin,arm CFLAGS:-I ./lib
 #cgo windows CFLAGS:-I ./lib
 #cgo linux CXXFLAGS: -I ./lib -std=c++14
 #cgo darwin CXXFLAGS: -I ./lib -std=gnu++14
-#cgo darwin,arm CXXFLAGS: -I ./lib -std=gnu++14
 #cgo windows CXXFLAGS: -I ./lib -std=c++14
 #cgo linux LDFLAGS: -L ./lib/linux  -Wl,--start-group -lstdc++ -lproj -ldl -lm  -lsqlite3 -lcproj -Wl,--end-group
 #cgo darwin,amd64 LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin  -lproj -lcproj  -lsqlite3 -lm
