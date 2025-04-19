@@ -2,17 +2,17 @@ package proj
 
 /*
 #include "proj_c_api.h"
-#cgo linux CFLAGS:-I ./lib
-#cgo darwin CFLAGS:-I ./lib
-#cgo windows CFLAGS:-I ./lib
-#cgo linux CXXFLAGS: -I ./lib -std=c++14
-#cgo darwin CXXFLAGS: -I ./lib -std=gnu++14
-#cgo windows CXXFLAGS: -I ./lib -std=c++14
-#cgo linux,amd64 LDFLAGS: -L ./lib/linux -Wl,--start-group -lstdc++ -lproj -ldl -lm  -lsqlite3 -lcproj -Wl,--end-group
-#cgo linux,arm64 LDFLAGS: -L ./lib/linux_arm -Wl,--start-group -lstdc++ -lproj -ldl -lm  -lsqlite3 -lcproj -Wl,--end-group
-#cgo darwin,amd64 LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin  -lproj -lcproj  -lsqlite3 -lm
-#cgo darwin,arm64 LDFLAGS: -L /usr/lib -lc++ -L ./lib/darwin_arm  -lproj  -lsqlite3 -lcproj -lm
-#cgo windows LDFLAGS: -L ./lib/windows -lproj -lcproj  -lsqlite3 -fPIC
+#cgo linux CFLAGS:-I ./libs
+#cgo darwin CFLAGS:-I ./libs
+#cgo windows CFLAGS:-I ./libs
+#cgo linux CXXFLAGS: -I ./libs -std=c++14
+#cgo darwin CXXFLAGS: -I ./libs -std=gnu++14
+#cgo windows CXXFLAGS: -I ./libs -std=c++14
+#cgo linux,amd64 LDFLAGS: -L ./libs/linux -Wl,--start-group -lstdc++ -lproj -ldl -lm  -lsqlite3 -lcproj -Wl,--end-group
+#cgo linux,arm64 LDFLAGS: -L ./libs/linux_arm -Wl,--start-group -lstdc++ -lproj -ldl -lm  -lsqlite3 -lcproj -Wl,--end-group
+#cgo darwin,amd64 LDFLAGS: -L /usr/lib -lc++ -L ./libs/darwin  -lproj -lcproj  -lsqlite3 -lm
+#cgo darwin,arm64 LDFLAGS: -L /usr/lib -lc++ -L ./libs/darwin_arm  -lproj  -lsqlite3 -lcproj -lm
+#cgo windows LDFLAGS: -L ./libs/windows -lproj -lcproj  -lsqlite3 -fPIC
 */
 import "C"
 import (
