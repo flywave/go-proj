@@ -8,15 +8,19 @@ import "C"
 import (
 	"os"
 	"path/filepath"
+	"sync"
 	"unsafe"
 )
 
 var searchPaths []string
 var finderResults map[string]*C.char
+var lock sync.Mutex
 
 //export goFinder
 func goFinder(cname *C.char) *C.char {
 	name := C.GoString(cname)
+	lock.Lock()
+	defer lock.Unlock()
 	path, ok := finderResults[name]
 	if !ok {
 		for _, p := range searchPaths {
